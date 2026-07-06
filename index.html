@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>101</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #fffafc, #f0f8ff);
+}
+
+.card {
+    text-align: center;
+    padding: 30px;
+    width: 90%;
+    max-width: 360px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background: white;
+}
+
+h1 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #ff4d6d;
+    color: white;
+}
+
+button:hover {
+    background: #e63e5c;
+}
+
+.signature {
+    margin-top: 15px;
+    font-size: 12px;
+    color: gray;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+    <h1>Hey 101?</h1>
+    <button onclick="next(1)">YEP😀</button>
+    <button onclick="next(1)">THAT'S ME✨</button>
+    <div class="signature">— sushi 🍣</div>
+</div>
+
+<script>
+
+function next(step) {
+    const card = document.getElementById("card");
+
+    if(step === 1) {
+        card.innerHTML = `
+            <h1>Do you know me?</h1>
+            <button onclick="next(2)">HAN HAN JANTI HU😌</button>
+            <button onclick="next(2)">OFC I KNOW YOU😝</button>
+            <div class="signature">— sushi 🍣</div>
+        `;
+    }
+
+    else if(step === 2) {
+        card.innerHTML = `
+            <h1>Have u got time???Got a song for you!! 🎧</h1>
+            <button onclick="next(3)">OKAY LET'S HEAR IT👀</button>
+            <button onclick="next(3)">SUNAO SUNAO😎</button>
+            <div class="signature">— sushi 🍣</div>
+        `;
+    }
+
+    else if(step === 3) {
+        card.innerHTML = `
+            <h1>One more thing... which language song???</h1>
+            <button onclick="next(4)">ENGLISH🙋‍♂️</button>
+            <button onclick="next(4)">INGLISH🙋‍♀️</button>
+            <div class="signature">— sushi 🍣</div>
+        `;
+    }
+    
+    else if(step === 4) {
+        card.innerHTML = `
+            <h1>Ready?</h1>
+            <button onclick="openVideo()">PLAY SONG 🎬</button>
+            <button onclick="openVideo()">BAJAO BAJAO 🎬</button>
+            <div class="signature">— sushi 🍣</div>
+        `;
+    }
+}
+
+
+// OPEN VIDEO
+function openVideo() {
+    // mark that video was opened
+    sessionStorage.setItem("watched", "yes");
+
+    // open youtube
+    window.open("https://youtu.be/jiXP-FRrSOg?si=8x46ahkv_Btvd2WV", "_blank");
+
+    // show waiting screen
+    document.getElementById("card").innerHTML = `
+        <h1>🎧 Hope you're enjoying it...</h1>
+        <p style="margin-top:15px; font-size:14px;">
+            Come back here after watching 🙂
+        </p>
+
+        <button onclick="checkReturn()">
+            I'm Back ✅
+        </button>
+
+        <div class="signature">— sushi 🍣</div>
+    `;
+}
+
+
+// WHEN USER RETURNS
+function checkReturn() {
+    if(sessionStorage.getItem("watched") === "yes") {
+        showFinal();
+    } else {
+        alert("Please play the song first 😊");
+    }
+}
+
+
+// FINAL SCREEN
+function showFinal() {
+    document.getElementById("card").innerHTML = `
+        <h1>Hope you liked it 🩵</h1>
+
+        <p style="line-height:1.8; margin-top:20px; font-size:16px;">
+            I just wanted to share this with you
+            <br> 
+            Felt to let you know
+            <br><br>
+            And ofc only if u feel the same way too
+            <br>
+            And if not just ignore it all😊
+            <br><br>
+            If it made you smile, that’s enough for me.
+        </p>
+
+        <button onclick="restart()">
+            Restart 🔄
+        </button>
+
+        <div class="signature">— sushi 🍣</div>
+    `;
+}
+
+
+// RESET EVERYTHING
+function restart() {
+    sessionStorage.removeItem("watched");
+    location.reload();
+}
+
+</script>
+
+</body>
+</html>
